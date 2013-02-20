@@ -17,10 +17,18 @@ namespace space_fight
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D Player_ship;
+        Texture2D bullet;
 
+        //objects
+        Player player1 = new Player();
+
+        //declare vaiables
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 960;
+            graphics.PreferredBackBufferHeight = 680;
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
         }
 
@@ -35,7 +43,11 @@ namespace space_fight
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Player_ship = new 
+            Player_ship = Content.Load<Texture2D>("Ship");
+            bullet = Content.Load<Texture2D>("bullet");
+            resources.bullet = bullet;
+            resources.ship = Player_ship;
+            resources.spritebatch = spriteBatch;
 
         }
 
@@ -46,8 +58,15 @@ namespace space_fight
 
         protected override void Update(GameTime gameTime)
         {
+            resources.kboard = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
+            if (resources.kboard.IsKeyDown(Keys.Escape))
+            {
+                this.Exit();
+            }
+            player1.update();
 
 
             base.Update(gameTime);
@@ -57,7 +76,11 @@ namespace space_fight
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            player1.draw();
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

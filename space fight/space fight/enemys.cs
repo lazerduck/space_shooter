@@ -11,11 +11,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace space_fight
 {
-    class resources
+    class enemys
     {
-        public static Texture2D ship;
-        public static Texture2D bullet;
-        public static SpriteBatch spritebatch;
-        public static KeyboardState kboard = new KeyboardState();
+        public enemys()
+        {
+
+        }
     }
 }
