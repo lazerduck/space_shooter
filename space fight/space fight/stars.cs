@@ -11,13 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace space_fight
 {
-    class resources
+    class stars
     {
-        public static Texture2D ship;
-        public static Texture2D bullet;
-        public static Texture2D enemy;
-        public static SpriteFont font;
-        public static SpriteBatch spritebatch;
-        public static KeyboardState kboard = new KeyboardState();
     }
 }

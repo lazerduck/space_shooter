@@ -18,9 +18,12 @@ namespace space_fight
         SpriteBatch spriteBatch;
         Texture2D Player_ship;
         Texture2D bullet;
+        Texture2D enemy;
+        SpriteFont font;
 
         //objects
         Player player1 = new Player();
+        enemys enemy_container = new enemys();
 
         //declare vaiables
         public Game1()
@@ -28,7 +31,7 @@ namespace space_fight
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 680;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Content.RootDirectory = "Content";
         }
 
@@ -45,6 +48,10 @@ namespace space_fight
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Player_ship = Content.Load<Texture2D>("Ship");
             bullet = Content.Load<Texture2D>("bullet");
+            enemy = Content.Load<Texture2D>("enemy");
+            font = Content.Load<SpriteFont>("Font1");
+            resources.font = font;
+            resources.enemy = enemy;
             resources.bullet = bullet;
             resources.ship = Player_ship;
             resources.spritebatch = spriteBatch;
@@ -67,18 +74,34 @@ namespace space_fight
                 this.Exit();
             }
             player1.update();
-
-
+            enemy_container.update();
+            for (int i = 0; i < player1.bullets.Count; i++)
+            {
+                for (int j = 0; j < enemy_container.enemies.Count; j++)
+                {
+                    if (enemy_container.enemies[j].hit_rec.Contains(player1.bullets[i].hit_rec.X, player1.bullets[i].hit_rec.Y))
+                    {
+                        player1.bullets.RemoveAt(i);
+                        enemy_container.enemies.RemoveAt(j);
+                    }
+                    else if (enemy_container.enemies[j].hit_rec.Contains(player1.bullets[i].hit_rec2.X, player1.bullets[i].hit_rec2.Y))
+                    {
+                        player1.bullets.RemoveAt(i);
+                        enemy_container.enemies.RemoveAt(j);
+                    }
+                }
+            }
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
             player1.draw();
+            enemy_container.draw();
 
             spriteBatch.End();
 

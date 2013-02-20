@@ -17,12 +17,12 @@ namespace space_fight
         //variables
         int xpos = 100;
         int ypos = 300;
-        int max_speed = 5;
+        int max_speed = 10;
         int fire_timer = 0;
         public Rectangle hit_rect;
         KeyboardState kboard = new KeyboardState();
         bool firing = true;
-        List<bullet> bullets = new List<bullet>();
+        public List<bullet> bullets = new List<bullet>();
         public Player()
         {
            
@@ -59,13 +59,19 @@ namespace space_fight
                     xpos += max_speed;
                 }
             }
-            if (kboard.IsKeyDown(Keys.Space))
+            if(firing)
             {
-                firing = false;
+                if (kboard.IsKeyDown(Keys.Space))
+                {
+                    firing = false;
+                }
             }
-            else
+            if(!firing)
             {
-                firing = true;
+                if (kboard.IsKeyDown(Keys.Space))
+                {
+                    firing = true;
+                }
             }
             if (firing)
             {
