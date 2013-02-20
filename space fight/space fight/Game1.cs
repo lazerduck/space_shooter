@@ -84,11 +84,7 @@ namespace space_fight
                         player1.bullets.RemoveAt(i);
                         enemy_container.enemies.RemoveAt(j);
                     }
-                    else if (enemy_container.enemies[j].hit_rec.Contains(player1.bullets[i].hit_rec2.X, player1.bullets[i].hit_rec2.Y))
-                    {
-                        player1.bullets.RemoveAt(i);
-                        enemy_container.enemies.RemoveAt(j);
-                    }
+                    
                 }
             }
             base.Update(gameTime);
