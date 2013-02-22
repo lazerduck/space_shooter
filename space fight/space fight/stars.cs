@@ -13,5 +13,30 @@ namespace space_fight
 {
     class stars
     {
+        List<star> star_cont = new List<star>();
+        public stars()
+        {
+
+        }
+        public void update()
+        {
+            star new_star = new star();
+            star_cont.Add(new_star);
+            for (int i = 0; i < star_cont.Count; i++)
+            {
+                star_cont[i].update();
+                if (star_cont[i].draw_rect.Y > 680)
+                {
+                    star_cont.RemoveAt(i);
+                }
+            }
+        }
+        public void draw()
+        {
+            for (int i = 0; i < star_cont.Count; i++)
+            {
+                star_cont[i].draw();
+            }
+        }
     }
 }

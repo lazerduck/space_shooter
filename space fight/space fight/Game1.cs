@@ -19,11 +19,13 @@ namespace space_fight
         Texture2D Player_ship;
         Texture2D bullet;
         Texture2D enemy;
+        Texture2D star;
         SpriteFont font;
 
         //objects
         Player player1 = new Player();
         enemys enemy_container = new enemys();
+        stars bg_stars = new stars();
 
         //declare vaiables
         public Game1()
@@ -50,6 +52,8 @@ namespace space_fight
             bullet = Content.Load<Texture2D>("bullet");
             enemy = Content.Load<Texture2D>("enemy");
             font = Content.Load<SpriteFont>("Font1");
+            star = Content.Load<Texture2D>("star");
+            resources.star = star;
             resources.font = font;
             resources.enemy = enemy;
             resources.bullet = bullet;
@@ -73,8 +77,12 @@ namespace space_fight
             {
                 this.Exit();
             }
+            //object updates
+            bg_stars.update();
             player1.update();
             enemy_container.update();
+
+            //hittest for bullets/enemies
             for (int i = 0; i < player1.bullets.Count; i++)
             {
                 for (int j = 0; j < enemy_container.enemies.Count; j++)
@@ -96,6 +104,7 @@ namespace space_fight
 
             spriteBatch.Begin();
 
+            bg_stars.draw();
             player1.draw();
             enemy_container.draw();
 

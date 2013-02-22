@@ -54,7 +54,7 @@ namespace space_fight
             }
             if (kboard.IsKeyDown(Keys.D) || kboard.IsKeyDown(Keys.Right))
             {
-                if (xpos < 980)
+                if (xpos < 920)
                 {
                     xpos += max_speed;
                 }

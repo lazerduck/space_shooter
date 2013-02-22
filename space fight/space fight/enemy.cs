@@ -22,7 +22,7 @@ namespace space_fight
        
         public enemy(int pattern)
         {
-            xpos = start.Next(0, 960);
+            xpos = start.Next(0, 920);
             this.pattern = pattern;
             hit_rec = new Rectangle(xpos, ypos, 42, 78);
         }
