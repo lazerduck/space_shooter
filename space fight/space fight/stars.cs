@@ -27,7 +27,7 @@ namespace space_fight
             for (int i = 0; i < star_cont.Count; i++)
             {
                 star_cont[i].update();
-                if (star_cont[i].draw_rect.Y > 680)
+                if (star_cont[i].draw_rect.Y > 780)
                 {
                     star_cont.RemoveAt(i);
                 }

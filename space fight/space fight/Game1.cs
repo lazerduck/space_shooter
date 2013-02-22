@@ -132,10 +132,17 @@ namespace space_fight
             {
                 for (int j = 0; j < enemy_container.enemies.Count; j++)
                 {
-                    if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
+                    try
                     {
-                        player1.bullets.RemoveAt(i);
-                        enemy_container.enemies.RemoveAt(j);
+                        if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
+                        {
+                            player1.bullets.RemoveAt(i);
+                            enemy_container.enemies.RemoveAt(j);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
                     }
                     
                 }

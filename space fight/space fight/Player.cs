@@ -15,8 +15,8 @@ namespace space_fight
     class Player
     {
         //variables
-        int xpos = 100;
-        int ypos = 300;
+        int xpos = 470;
+        int ypos = 550;
         int max_speed = 10;
         int fire_timer = 0;
         public Rectangle hit_rect;
@@ -75,7 +75,7 @@ namespace space_fight
             }
             if (firing)
             {
-                if (fire_timer == 3)
+                if (fire_timer == 5)
                 {
                     bullet new_bull = new bullet(xpos,ypos);
                     bullets.Add(new_bull);
