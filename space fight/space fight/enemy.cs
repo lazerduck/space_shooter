@@ -14,10 +14,10 @@ namespace space_fight
     class enemy
     {
         int xpos = 0;
-        int ypos = 0;
+        int ypos = -78;
         public Rectangle hit_rec;
         int pattern = 0;
-        int y_speed = 3;
+        int y_speed = 7;
         Random start = new Random();
        
         public enemy(int pattern)

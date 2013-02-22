@@ -21,7 +21,7 @@ namespace space_fight
         }
         public void update()
         {
-            if (count == 20)
+            if (count == 15)
             {
                 enemy new_enemy = new enemy(0);
                 enemies.Add(new_enemy);

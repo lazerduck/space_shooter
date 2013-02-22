@@ -22,6 +22,8 @@ namespace space_fight
         {
             star new_star = new star();
             star_cont.Add(new_star);
+            star new_star1 = new star();
+            star_cont.Add(new_star1);
             for (int i = 0; i < star_cont.Count; i++)
             {
                 star_cont[i].update();

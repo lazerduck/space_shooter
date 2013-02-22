@@ -16,24 +16,19 @@ namespace space_fight
         int xpos = 0;
         int ypos = 0;
         public Rectangle hit_rec;
-        public Rectangle hit_rec2;
         public bullet(int startx, int starty)
         {
             xpos = startx;
             ypos = starty;
-            hit_rec = new Rectangle(xpos+10, ypos, 10, 20);
-            hit_rec2 = new Rectangle(xpos + 20, ypos, 10, 20);
-
+            hit_rec = new Rectangle(xpos+15, ypos+60, 10, 20);
         }
         public void update()
         {
-            hit_rec.Y -= 10;
-            hit_rec2.Y -= 10;
+            hit_rec.Y -= 20;
         }
         public void draw()
         {
             resources.spritebatch.Draw(resources.bullet, hit_rec, Color.White);
-            resources.spritebatch.Draw(resources.bullet, hit_rec2, Color.White);
         }
     }
 }

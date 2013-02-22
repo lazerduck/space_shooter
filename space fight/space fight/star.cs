@@ -16,11 +16,12 @@ namespace space_fight
         Random rnd_get = new Random();
         int xpos = 0;
         int ypos = 0;
-        public Rectangle draw_rect = new Rectangle(0, 0, 5, 5);
+        public Rectangle draw_rect;
         public star()
         {
             xpos = rnd_get.Next(0, 960);
             ypos = rnd_get.Next(10, 20);
+            draw_rect = new Rectangle(0, 0, ypos/4, ypos/4);
         }
         public void update()
         {

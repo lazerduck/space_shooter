@@ -20,27 +20,34 @@ namespace space_fight
         Texture2D bullet;
         Texture2D enemy;
         Texture2D star;
+        Texture2D btn_play;
+        Texture2D btn_exit;
+        Texture2D btn_fullscreen;
         SpriteFont font;
 
         //objects
         Player player1 = new Player();
         enemys enemy_container = new enemys();
         stars bg_stars = new stars();
+        main_menu m_menu = new main_menu();
 
         //declare vaiables
+        KeyboardState old_state;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            resources.graphics = graphics;
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 680;
             graphics.IsFullScreen = false;
+            IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
         {
-            
 
+            old_state = Keyboard.GetState();
             base.Initialize();
         }
 
@@ -53,6 +60,12 @@ namespace space_fight
             enemy = Content.Load<Texture2D>("enemy");
             font = Content.Load<SpriteFont>("Font1");
             star = Content.Load<Texture2D>("star");
+            btn_exit = Content.Load<Texture2D>("exit_btn");
+            btn_fullscreen = Content.Load<Texture2D>("fullscreen_btn");
+            btn_play = Content.Load<Texture2D>("play_btn");
+            resources.btn_exit = btn_exit;
+            resources.btn_fullscreen = btn_fullscreen;
+            resources.btn_play = btn_play;
             resources.star = star;
             resources.font = font;
             resources.enemy = enemy;
@@ -73,21 +86,53 @@ namespace space_fight
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            if (resources.kboard.IsKeyDown(Keys.Escape))
+            if (resources.exit == true)
             {
                 this.Exit();
             }
+
+            if (resources.kboard.IsKeyDown(Keys.Escape))
+            {
+            }
+            else if(old_state.IsKeyDown(Keys.Escape))
+            {
+                if (resources.paused == false)
+                {
+                    resources.paused = true;
+                }
+                else
+                {
+                    resources.paused = false;
+                }
+
+            }
+            old_state = resources.kboard;
             //object updates
-            bg_stars.update();
-            player1.update();
-            enemy_container.update();
+            if (resources.paused == false)
+            {
+                bg_stars.update();
+                player1.update();
+                enemy_container.update();
+            }
+            else
+            {
+                m_menu.update();
+            }
+            //hittest for player
+            for (int j = 0; j < enemy_container.enemies.Count; j++)
+            {
+                if(player1.hit_rect.Intersects(enemy_container.enemies[j].hit_rec))
+                {
+                    enemy_container.enemies.RemoveAt(j);
+                }
+            }
 
             //hittest for bullets/enemies
             for (int i = 0; i < player1.bullets.Count; i++)
             {
                 for (int j = 0; j < enemy_container.enemies.Count; j++)
                 {
-                    if (enemy_container.enemies[j].hit_rec.Contains(player1.bullets[i].hit_rec.X, player1.bullets[i].hit_rec.Y))
+                    if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
                     {
                         player1.bullets.RemoveAt(i);
                         enemy_container.enemies.RemoveAt(j);
@@ -103,10 +148,16 @@ namespace space_fight
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-            bg_stars.draw();
-            player1.draw();
-            enemy_container.draw();
+            if (!resources.paused)
+            {
+                bg_stars.draw();
+                player1.draw();
+                enemy_container.draw();
+            }
+            if (resources.paused == true)
+            {
+                m_menu.draw();
+            }
 
             spriteBatch.End();
 
