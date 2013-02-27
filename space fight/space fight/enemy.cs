@@ -15,6 +15,7 @@ namespace space_fight
     {
         int xpos = 0;
         int ypos = -78;
+        int direction = 0;
         public Rectangle hit_rec;
         int pattern = 0;
         int y_speed = 7;
@@ -23,6 +24,10 @@ namespace space_fight
        
         public enemy(int pattern)
         {
+            while (direction == 0)
+            {
+                direction = (int)start.Next(-1, 2);
+            }
             
             this.pattern = pattern;
             if (pattern == 0)
@@ -36,6 +41,10 @@ namespace space_fight
             if (pattern == 2)
             {
                 xpos = 820;
+            }
+            if (pattern == 3)
+            {
+                xpos = start.Next(100, 820);
             }
             hit_rec = new Rectangle(xpos, ypos, 42, 78);
         }
@@ -56,6 +65,10 @@ namespace space_fight
                     hit_rec.Y += Convert.ToInt32(y_speed/1.5);
                     hit_rec.X -= (int)inc;
                     inc+=0.2f;
+                    break;
+                case 3:
+                    hit_rec.Y += y_speed;
+                    hit_rec.X += direction*(int)(Math.Sin(hit_rec.Y/25)*25);
                     break;
             }
         }

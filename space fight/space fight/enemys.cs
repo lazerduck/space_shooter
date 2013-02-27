@@ -15,53 +15,21 @@ namespace space_fight
     {
         public List<enemy> enemies = new List<enemy>();
         int count = 0;
-        int pattern = 1;
         Random enemy_pattern = new Random();
-        int count2 = 0;
         int timer = 0;
-        int selected_pattern = 0;
         public enemys()
         {
             timer = enemy_pattern.Next(30, 100);
         }
         public void update()
         {
+            count++;
             if (count == 10)
             {
-                enemy new_enemy = new enemy(pattern);
+                enemy new_enemy = new enemy(3);
                 enemies.Add(new_enemy);
                 count = 0;
-                count2++;
-                if (count2 == timer)
-                {
-                    count2 = 0;
-                    timer = enemy_pattern.Next(30, 100);
-                    if (selected_pattern == 0)
-                    {
-                        selected_pattern = 1;
-                    }
-                    else if(selected_pattern == 1)
-                    {
-                        selected_pattern = 0;
-                    }
-                }
-                if (selected_pattern == 0)
-                {
-                    if (pattern == 1)
-                    {
-                        pattern = 2;
-                    }
-                    else
-                    {
-                        pattern = 1;
-                    }
-                }
-                else if (selected_pattern == 1)
-                {
-                    pattern = 0;
-                }
             }
-            count++;
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].update();
@@ -70,6 +38,7 @@ namespace space_fight
                     enemies.RemoveAt(i);
                 }
             }
+
         }
         public void draw()
         {
