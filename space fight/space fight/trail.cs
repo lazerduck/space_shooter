@@ -11,24 +11,25 @@ using Microsoft.Xna.Framework.Media;
 
 namespace space_fight
 {
-    class bullet
+    class trail
     {
-        int xpos = 0;
-        int ypos = 0;
-        public Rectangle hit_rec;
-        public bullet(int startx, int starty)
+        Rectangle box = new Rectangle(0, 0, resources.fire.Width, resources.fire.Height);
+        public int timer = 0;
+        public float alpha = 1f;
+        public trail(int x, int y)
         {
-            xpos = startx;
-            ypos = starty;
-            hit_rec = new Rectangle(xpos, ypos, 4, 20);
+            box.X = x;
+            box.Y = y;
         }
         public void update()
         {
-            hit_rec.Y -= 20;
+            timer++;
+            box.Y += 20;
+            alpha -= 0.1f;
         }
         public void draw()
         {
-            resources.spritebatch.Draw(resources.bullet, hit_rec, Color.White);
+            resources.spritebatch.Draw(resources.fire, box, Color.White * alpha);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace space_fight
             {
                 xpos = start.Next(100, 820);
             }
-            hit_rec = new Rectangle(xpos, ypos, 42, 78);
+            hit_rec = new Rectangle(xpos, ypos, resources.enemy.Width, resources.enemy.Height);
         }
         public void update()
         {

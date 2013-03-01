@@ -23,7 +23,9 @@ namespace space_fight
         public static Texture2D btn_exit;
         public static Texture2D btn_fullscreen;
         public static SpriteFont font;
+        public static Texture2D explosion;
         public static SpriteBatch spritebatch;
+        public static Texture2D fire;
         public static KeyboardState kboard = new KeyboardState();
         public static GraphicsDeviceManager graphics;
     }

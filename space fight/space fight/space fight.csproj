@@ -110,6 +110,7 @@
     <Compile Include="bullet.cs" />
     <Compile Include="enemy.cs" />
     <Compile Include="enemys.cs" />
+    <Compile Include="explosion.cs" />
     <Compile Include="main_menu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +119,8 @@
     <Compile Include="resources.cs" />
     <Compile Include="star.cs" />
     <Compile Include="stars.cs" />
+    <Compile Include="timer.cs" />
+    <Compile Include="trail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

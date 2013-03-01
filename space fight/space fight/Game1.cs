@@ -23,6 +23,8 @@ namespace space_fight
         Texture2D btn_play;
         Texture2D btn_exit;
         Texture2D btn_fullscreen;
+        Texture2D fire;
+        Texture2D explosion;
         SpriteFont font;
 
         //objects
@@ -33,6 +35,7 @@ namespace space_fight
 
         //declare vaiables
         KeyboardState old_state;
+        List<explosion> boom = new List<explosion>();
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -63,7 +66,10 @@ namespace space_fight
             btn_exit = Content.Load<Texture2D>("exit_btn");
             btn_fullscreen = Content.Load<Texture2D>("fullscreen_btn");
             btn_play = Content.Load<Texture2D>("play_btn");
+            fire = Content.Load<Texture2D>("fire");
+            explosion = Content.Load<Texture2D>("explosion");
             resources.btn_exit = btn_exit;
+            resources.explosion = explosion;
             resources.btn_fullscreen = btn_fullscreen;
             resources.btn_play = btn_play;
             resources.star = star;
@@ -71,6 +77,7 @@ namespace space_fight
             resources.enemy = enemy;
             resources.bullet = bullet;
             resources.ship = Player_ship;
+            resources.fire = fire;
             resources.spritebatch = spriteBatch;
 
         }
@@ -123,6 +130,8 @@ namespace space_fight
             {
                 if(player1.hit_rect.Intersects(enemy_container.enemies[j].hit_rec))
                 {
+                    explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
+                    boom.Add(new_blast);
                     enemy_container.enemies.RemoveAt(j);
                 }
             }
@@ -137,7 +146,9 @@ namespace space_fight
                         if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
                         {
                             player1.bullets.RemoveAt(i);
+                            explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
                             enemy_container.enemies.RemoveAt(j);
+                            boom.Add(new_blast);
                         }
                     }
                     catch (Exception e)
@@ -145,6 +156,17 @@ namespace space_fight
 
                     }
                     
+                }
+            }
+            for (int i = 0; i < boom.Count; i++)
+            {
+                if (boom[i].alpha < 0)
+                {
+                    boom.RemoveAt(i);
+                }
+                else
+                {
+                    boom[i].update();
                 }
             }
             base.Update(gameTime);
@@ -165,7 +187,10 @@ namespace space_fight
             {
                 m_menu.draw();
             }
-
+            for (int i = 0; i < boom.Count; i++)
+            {
+                boom[i].draw();
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

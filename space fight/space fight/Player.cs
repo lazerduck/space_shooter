@@ -19,17 +19,19 @@ namespace space_fight
         int ypos = 550;
         int max_speed = 10;
         int fire_timer = 0;
+        bool bul_bool = true;
         public Rectangle hit_rect;
         KeyboardState kboard = new KeyboardState();
         bool firing = true;
         public List<bullet> bullets = new List<bullet>();
+        public List<trail> trails = new List<trail>();
         public Player()
         {
            
         }
         public void update()
         {
-            hit_rect = new Rectangle(xpos, ypos, 42, 78);
+            hit_rect = new Rectangle(xpos, ypos, resources.ship.Width, resources.ship.Height);
             kboard = Keyboard.GetState();
             if(kboard.IsKeyDown(Keys.W)|| kboard.IsKeyDown(Keys.Up))
             {
@@ -40,7 +42,7 @@ namespace space_fight
             }
             if (kboard.IsKeyDown(Keys.S) || kboard.IsKeyDown(Keys.Down))
             {
-                if (ypos < 680)
+                if (ypos < 600)
                 {
                     ypos += max_speed;
                 }
@@ -77,8 +79,19 @@ namespace space_fight
             {
                 if (fire_timer == 5)
                 {
-                    bullet new_bull = new bullet(xpos,ypos);
-                    bullets.Add(new_bull);
+                    if (bul_bool)
+                    {
+                        bullet new_bull = new bullet(xpos+13, ypos+10);
+                        bul_bool = false;
+                        bullets.Add(new_bull);
+                    }
+                    else
+                    {
+                        bullet new_bull = new bullet(xpos+28, ypos+10);
+                        bul_bool = true;
+                        bullets.Add(new_bull);
+                    }
+                    
                     fire_timer = 0;
                 }
             }
@@ -91,9 +104,26 @@ namespace space_fight
                 }
             }
             fire_timer++;
+            trail new_trail = new trail(xpos+13, ypos+50);
+            trails.Add(new_trail);
+            for (int i = 0; i < trails.Count; i++)
+            {
+                if (trails[i].alpha < 0)
+                {
+                    trails.RemoveAt(i);
+                }
+                else
+                {
+                    trails[i].update();
+                }
+            }
         }
         public void draw()
         {
+            for (int i = 0; i < trails.Count; i++)
+            {
+                trails[i].draw();
+            }
             foreach (bullet c in bullets)
             {
                 c.draw();
