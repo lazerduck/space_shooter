@@ -33,6 +33,13 @@ namespace space_fight
                     if (mouse_click.LeftButton == ButtonState.Released)
                     {
                         resources.paused = false;
+                        if (resources.death)
+                        {
+                            resources.power_level = 0;
+                        }
+                        resources.death = false;
+                        resources.reset = true;
+                        resources.score = 0;
                     }
                 }
             }

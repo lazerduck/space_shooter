@@ -18,7 +18,7 @@ namespace space_fight
         int direction = 0;
         public Rectangle hit_rec;
         int pattern = 0;
-        int y_speed = 7;
+        int y_speed = 5;
         double inc = 0;
         Random start = new Random();
        

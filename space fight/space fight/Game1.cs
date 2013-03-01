@@ -25,7 +25,9 @@ namespace space_fight
         Texture2D btn_fullscreen;
         Texture2D fire;
         Texture2D explosion;
+        Texture2D power_up;
         SpriteFont font;
+
 
         //objects
         Player player1 = new Player();
@@ -49,8 +51,12 @@ namespace space_fight
 
         protected override void Initialize()
         {
-
+            //set start conditions for the resources class
             old_state = Keyboard.GetState();
+            resources.score = 0;
+            resources.death = false;
+            resources.reset = false;
+            resources.power_level = 0;
             base.Initialize();
         }
 
@@ -68,6 +74,8 @@ namespace space_fight
             btn_play = Content.Load<Texture2D>("play_btn");
             fire = Content.Load<Texture2D>("fire");
             explosion = Content.Load<Texture2D>("explosion");
+            power_up = Content.Load<Texture2D>("power_up");
+            resources.power_up = power_up;
             resources.btn_exit = btn_exit;
             resources.explosion = explosion;
             resources.btn_fullscreen = btn_fullscreen;
@@ -118,45 +126,57 @@ namespace space_fight
             if (resources.paused == false)
             {
                 bg_stars.update();
-                player1.update();
+                if (!resources.death)
+                {
+                    player1.update(); 
+                }
                 enemy_container.update();
             }
             else
             {
                 m_menu.update();
             }
-            //hittest for player
-            for (int j = 0; j < enemy_container.enemies.Count; j++)
+            if (resources.death)
             {
-                if(player1.hit_rect.Intersects(enemy_container.enemies[j].hit_rec))
-                {
-                    explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
-                    boom.Add(new_blast);
-                    enemy_container.enemies.RemoveAt(j);
-                }
+                m_menu.update();
             }
-
-            //hittest for bullets/enemies
-            for (int i = 0; i < player1.bullets.Count; i++)
+            if (!resources.death)
             {
+                //hittest for player
                 for (int j = 0; j < enemy_container.enemies.Count; j++)
                 {
-                    try
+                    if (player1.hit_rect.Intersects(enemy_container.enemies[j].hit_rec))
                     {
-                        if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
-                        {
-                            player1.bullets.RemoveAt(i);
-                            explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
-                            enemy_container.enemies.RemoveAt(j);
-                            boom.Add(new_blast);
-                        }
+                        explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
+                        boom.Add(new_blast);
+                        resources.death = true;
+                        enemy_container.enemies.RemoveAt(j);
                     }
-                    catch (Exception e)
+                }
+
+                //hittest for bullets/enemies
+                for (int i = 0; i < player1.bullets.Count; i++)
+                {
+                    for (int j = 0; j < enemy_container.enemies.Count; j++)
                     {
+                        try
+                        {
+                            if (enemy_container.enemies[j].hit_rec.Intersects(player1.bullets[i].hit_rec))
+                            {
+                                player1.bullets.RemoveAt(i);
+                                explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
+                                enemy_container.enemies.RemoveAt(j);
+                                boom.Add(new_blast);
+                                resources.score++;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
 
                     }
-                    
-                }
+                }  
             }
             for (int i = 0; i < boom.Count; i++)
             {
@@ -177,13 +197,17 @@ namespace space_fight
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+            spriteBatch.DrawString(font, "score: " + resources.score, new Vector2(800, 20), Color.White);
             if (!resources.paused)
             {
                 bg_stars.draw();
-                player1.draw();
+                if (!resources.death)
+                {
+                    player1.draw();
+                }
                 enemy_container.draw();
             }
-            if (resources.paused == true)
+            if ((resources.paused == true) || (resources.death == true))
             {
                 m_menu.draw();
             }

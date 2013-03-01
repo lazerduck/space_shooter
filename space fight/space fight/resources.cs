@@ -28,5 +28,10 @@ namespace space_fight
         public static Texture2D fire;
         public static KeyboardState kboard = new KeyboardState();
         public static GraphicsDeviceManager graphics;
+        public static int score;
+        public static bool death;
+        public static bool reset;
+        public static int power_level;
+        public static Texture2D power_up;
     }
 }

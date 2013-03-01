@@ -22,15 +22,52 @@ namespace space_fight
         bool bul_bool = true;
         public Rectangle hit_rect;
         KeyboardState kboard = new KeyboardState();
-        bool firing = true;
         public List<bullet> bullets = new List<bullet>();
         public List<trail> trails = new List<trail>();
+        public List<powerups> power = new List<powerups>();
+        bool launch = false;
         public Player()
         {
            
         }
         public void update()
         {
+            //player/power hittest
+            for (int i = 0; i < power.Count; i++)
+            {
+                if (power[i].hit_box.Intersects(hit_rect))
+                {
+                    power.RemoveAt(i);
+                    resources.power_level++;
+                }
+            }
+            
+            if ((resources.score%50) == 0 && (resources.score!= 0) && (!launch))
+            {
+                powerups new_power = new powerups();
+                power.Add(new_power);
+                launch = true;
+            }
+            if ((launch) && (resources.score % 50 != 0))
+            {
+                launch = false;
+            }
+            for(int i = 0; i < power.Count; i++)
+            {
+                if (power[i].hit_box.Y > 800)
+                {
+                    power.RemoveAt(i);
+                }
+                else
+                {
+                    power[i].update();
+                }
+            }
+            if (resources.reset)
+            {
+                ypos = 550;
+                xpos = 470;
+            }
             hit_rect = new Rectangle(xpos, ypos, resources.ship.Width, resources.ship.Height);
             kboard = Keyboard.GetState();
             if(kboard.IsKeyDown(Keys.W)|| kboard.IsKeyDown(Keys.Up))
@@ -61,40 +98,66 @@ namespace space_fight
                     xpos += max_speed;
                 }
             }
-            if(firing)
-            {
-                if (kboard.IsKeyDown(Keys.Space))
-                {
-                    firing = false;
-                }
-            }
-            if(!firing)
-            {
-                if (kboard.IsKeyDown(Keys.Space))
-                {
-                    firing = true;
-                }
-            }
-            if (firing)
-            {
+           switch(resources.power_level)
+           {
+               case 0:
                 if (fire_timer == 5)
                 {
+                    
                     if (bul_bool)
                     {
-                        bullet new_bull = new bullet(xpos+13, ypos+10);
+                        bullet new_bull = new bullet(xpos+13, ypos+10,0);
                         bul_bool = false;
                         bullets.Add(new_bull);
                     }
                     else
                     {
-                        bullet new_bull = new bullet(xpos+28, ypos+10);
+                        bullet new_bull = new bullet(xpos+28, ypos+10,0);
                         bul_bool = true;
                         bullets.Add(new_bull);
                     }
                     
                     fire_timer = 0;
+                
                 }
+                break;
+               case 1:
+                if (fire_timer == 5)
+                {
+                    bullet new_bull = new bullet(xpos + 13, ypos + 10, 0);
+                    bullet new_bull2 = new bullet(xpos + 28, ypos + 10, 0);
+                    bullets.Add(new_bull);
+                    bullets.Add(new_bull2);
+                    fire_timer = 0;
+                }
+                break;
+               case 2:
+                if (fire_timer == 5)
+                {
+
+                    if (bul_bool)
+                    {
+                        bullet new_bull = new bullet(xpos + 13, ypos + 10, 0);
+                        bullet new_bull2 = new bullet(xpos + 28, ypos + 10, 2);
+                        bul_bool = false;
+                        bullets.Add(new_bull);
+                        bullets.Add(new_bull2);
+                    }
+                    else
+                    {
+                        bullet new_bull = new bullet(xpos + 28, ypos + 10, 0);
+                        bullet new_bull2 = new bullet(xpos + 13, ypos + 10, 1);
+                        bul_bool = true;
+                        bullets.Add(new_bull);
+                        bullets.Add(new_bull2);
+                    }
+
+                    fire_timer = 0;
+
+                }
+                break;
             }
+            
             for (int i = 0; i < bullets.Count;i++ )
             {
                 bullets[i].update();
@@ -120,6 +183,10 @@ namespace space_fight
         }
         public void draw()
         {
+            for (int i = 0; i < power.Count; i++)
+            {
+                power[i].draw();
+            }
             for (int i = 0; i < trails.Count; i++)
             {
                 trails[i].draw();

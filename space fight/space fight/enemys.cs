@@ -23,6 +23,15 @@ namespace space_fight
         }
         public void update()
         {
+            if (resources.death)
+            {
+                enemies.Clear();
+                
+            }
+            if (resources.reset)
+            {
+                resources.reset = false;
+            }
             count++;
             if (count == 10)
             {
@@ -33,6 +42,13 @@ namespace space_fight
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].update();
+                if (resources.death)
+                {
+                    if (enemies[i].hit_rec.Y > 600)
+                    {
+                        enemies.RemoveAt(i);
+                    }
+                }
                 if (enemies[i].hit_rec.Y > 800)
                 {
                     enemies.RemoveAt(i);
