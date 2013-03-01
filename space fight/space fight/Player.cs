@@ -15,6 +15,7 @@ namespace space_fight
     class Player
     {
         //variables
+        int pow_time = 50;
         int xpos = 470;
         int ypos = 550;
         int max_speed = 10;
@@ -32,6 +33,10 @@ namespace space_fight
         }
         public void update()
         {
+            if(resources.death)
+            {
+                power.Clear();
+            }
             //player/power hittest
             for (int i = 0; i < power.Count; i++)
             {
@@ -42,13 +47,14 @@ namespace space_fight
                 }
             }
             
-            if ((resources.score%50) == 0 && (resources.score!= 0) && (!launch))
+            if ((resources.score%pow_time) == 0 && (resources.score!= 0) && (!launch))
             {
                 powerups new_power = new powerups();
                 power.Add(new_power);
+                pow_time = pow_time*2;
                 launch = true;
             }
-            if ((launch) && (resources.score % 50 != 0))
+            if ((launch) && (resources.score % pow_time != 0))
             {
                 launch = false;
             }
