@@ -26,6 +26,7 @@ namespace space_fight
         Texture2D fire;
         Texture2D explosion;
         Texture2D power_up;
+        Texture2D btn_restart;
         SpriteFont font;
 
 
@@ -75,6 +76,8 @@ namespace space_fight
             fire = Content.Load<Texture2D>("fire");
             explosion = Content.Load<Texture2D>("explosion");
             power_up = Content.Load<Texture2D>("power_up");
+            btn_restart = Content.Load<Texture2D>("restart_btn");
+            resources.restart_btn = btn_restart;
             resources.power_up = power_up;
             resources.btn_exit = btn_exit;
             resources.explosion = explosion;

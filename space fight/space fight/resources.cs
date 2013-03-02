@@ -33,5 +33,6 @@ namespace space_fight
         public static bool reset;
         public static int power_level;
         public static Texture2D power_up;
+        public static Texture2D restart_btn;
     }
 }

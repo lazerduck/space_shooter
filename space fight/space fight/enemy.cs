@@ -68,7 +68,7 @@ namespace space_fight
                     break;
                 case 3:
                     hit_rec.Y += y_speed;
-                    hit_rec.X += direction*(int)(Math.Sin(hit_rec.Y/25)*25);
+                    hit_rec.X += direction*(int)(Math.Sin(hit_rec.Y/25)*10);
                     break;
             }
         }

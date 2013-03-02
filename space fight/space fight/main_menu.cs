@@ -77,7 +77,14 @@ namespace space_fight
         }
         public void draw()
         {
-            resources.spritebatch.Draw(resources.btn_play, play_btn, Color.White);
+            if (resources.death)
+            {
+                resources.spritebatch.Draw(resources.restart_btn, play_btn, Color.White);
+            }
+            else
+            {
+                resources.spritebatch.Draw(resources.btn_play, play_btn, Color.White);
+            }
             resources.spritebatch.Draw(resources.btn_fullscreen, fullscreen_btn, Color.White);
             resources.spritebatch.Draw(resources.btn_exit, exit_btn, Color.White);
         }
