@@ -39,6 +39,14 @@ namespace space_fight
                     hit_rec.Y -= 15;
                     hit_rec.X += 5;
                     break;
+                case 3:
+                    hit_rec.Y += 10;
+                    hit_rec.X += 10;
+                    break;
+                case 4:
+                    hit_rec.Y += 10;
+                    hit_rec.X -= 10;
+                    break;
             }
         }
         public void draw()

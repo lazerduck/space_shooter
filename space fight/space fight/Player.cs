@@ -162,6 +162,71 @@ namespace space_fight
 
                 }
                 break;
+               case 3:
+                if (fire_timer == 5)
+                {
+                    bullet new_bull = new bullet(xpos + 13, ypos + 10, 0);
+                    bullet new_bull2 = new bullet(xpos + 28, ypos + 10, 0);
+                    bullet new_bull3 = new bullet(xpos + 28, ypos + 10, 2);
+                    bullet new_bull4 = new bullet(xpos + 13, ypos + 10, 1);
+                    bullets.Add(new_bull);
+                    bullets.Add(new_bull2);
+                    bullets.Add(new_bull3);
+                    bullets.Add(new_bull4);
+                    fire_timer = 0;
+                }
+                break;
+               case 4:
+                if (fire_timer == 5)
+                {
+
+                    if (bul_bool)
+                    {
+                        bullet new_bull = new bullet(xpos + 13, ypos + 10, 0);
+                        bullet new_bull3 = new bullet(xpos + 28, ypos + 10, 2);
+                        bullet new_bull4 = new bullet(xpos + 28, ypos + 20, 3);
+                        bul_bool = false;
+                        bullets.Add(new_bull);
+                        bullets.Add(new_bull3);
+                        bullets.Add(new_bull4);
+                    }
+                    else
+                    {
+                        bullet new_bull = new bullet(xpos + 28, ypos + 10, 0);
+                        bullet new_bull3 = new bullet(xpos + 13, ypos + 10, 1);
+                        bullet new_bull4 = new bullet(xpos + 13, ypos + 20, 4);
+                        bul_bool = true;
+                        bullets.Add(new_bull);
+                        bullets.Add(new_bull3);
+                        bullets.Add(new_bull4);
+                    }
+
+                    fire_timer = 0;
+
+                }
+                break;
+                   case 5:
+                if (fire_timer == 5)
+                {
+
+                    bullet new_bull = new bullet(xpos + 13, ypos + 10, 0);
+                    bullet new_bull3 = new bullet(xpos + 28, ypos + 10, 2);
+                    bullet new_bull4 = new bullet(xpos + 28, ypos + 20, 3);
+                    bul_bool = false;
+                    bullets.Add(new_bull);
+                    bullets.Add(new_bull3);
+                    bullets.Add(new_bull4);
+                    bullet new_bull2 = new bullet(xpos + 28, ypos + 10, 0);
+                    bullet new_bull1 = new bullet(xpos + 13, ypos + 10, 1);
+                    bullet new_bull5 = new bullet(xpos + 13, ypos + 20, 4);
+                    bul_bool = true;
+                    bullets.Add(new_bull2);
+                    bullets.Add(new_bull1);
+                    bullets.Add(new_bull5);
+                    fire_timer = 0;
+
+                }
+                break;
             }
             
             for (int i = 0; i < bullets.Count;i++ )

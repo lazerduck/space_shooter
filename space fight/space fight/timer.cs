@@ -13,5 +13,14 @@ namespace space_fight
 {
     class timer
     {
+        
+        public timer()
+        {
+
+        }
+        public static void start_timer()
+        {
+            
+        }
     }
 }
