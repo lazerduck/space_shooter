@@ -80,6 +80,13 @@ namespace space_fight
             }
             for (int i = 0; i < fighter_enemy.Count; i++)
             {
+                if (fighter_enemy[i].hit_rect.Y > 800)
+                {
+                    fighter_enemy.RemoveAt(i);
+                }
+            }
+            for (int i = 0; i < fighter_enemy.Count; i++)
+            {
                 fighter_enemy[i].update();
                 if (resources.death)
                 {
