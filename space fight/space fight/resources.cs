@@ -13,6 +13,7 @@ namespace space_fight
 {
     class resources
     {
+        public static List<enemy_bullet> bull = new List<enemy_bullet>();
         public static bool paused = true;
         public static bool exit = false;
         public static Texture2D ship;

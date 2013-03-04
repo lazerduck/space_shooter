@@ -35,10 +35,7 @@ namespace space_fight
         {
             resources.player_x = hit_rect.X;
             resources.player_y = hit_rect.Y;
-            if(resources.death)
-            {
-                power.Clear();
-            }
+            
             //player/power hittest
             for (int i = 0; i < power.Count; i++)
             {

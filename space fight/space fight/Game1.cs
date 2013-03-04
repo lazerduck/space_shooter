@@ -98,8 +98,7 @@ namespace space_fight
             resources.spritebatch = spriteBatch;
             
 
-        }
-        int place = 0;
+        }    
         protected override void UnloadContent()
         {
             
@@ -107,6 +106,10 @@ namespace space_fight
 
         protected override void Update(GameTime gameTime)
         {
+            if (resources.death)
+            {
+                player1.power.Clear();
+            }
             resources.kboard = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -196,6 +199,27 @@ namespace space_fight
                         }
 
                     }
+                }
+                //hittest for enemy bullets
+                try
+                {
+
+                    for (int i = 0; i < resources.bull.Count; i++)
+                    {
+
+                        if (resources.bull[i].hit_rec.Intersects(player1.hit_rect))
+                        {
+                            explosion new_blast = new explosion(player1.hit_rect.X, player1.hit_rect.Y);
+                            boom.Add(new_blast);
+                            resources.death = true;
+                        }
+
+                    }
+                   
+                }
+                catch (Exception q)
+                {
+
                 }
                 for (int i = 0; i < player1.bullets.Count; i++)
                 {

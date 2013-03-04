@@ -25,10 +25,15 @@ namespace space_fight
         }
         public void update()
         {
+            for (int i = 0; i < resources.bull.Count; i++)
+            {
+                resources.bull[i].update();
+            }
             if (resources.death)
             {
                 enemies.Clear();
                 fighter_enemy.Clear();
+                resources.bull.Clear();
                 
             }
             if (resources.reset)
@@ -36,7 +41,12 @@ namespace space_fight
                 resources.reset = false;
             }
             count++;
-            if (count == 40)
+            if (count % 20 == 0)
+            {
+                enemy new_enemy = new enemy(3);
+                enemies.Add(new_enemy);
+            }
+            if (count == 80)
             {
                 if (en)
                 {
@@ -49,6 +59,7 @@ namespace space_fight
                     en = true;
                     enemy_fighter new_fighter = new enemy_fighter(1);
                     fighter_enemy.Add(new_fighter);
+
                 }
                 count = 0;
             }
@@ -86,6 +97,10 @@ namespace space_fight
         }
         public void draw()
         {
+            for (int i = 0; i < resources.bull.Count; i++)
+            {
+                resources.bull[i].draw();
+            }
             foreach (enemy e in enemies)
             {
                 e.draw();

@@ -13,7 +13,7 @@ namespace space_fight
 {
     class enemy_bullet
     {
-        Rectangle hit_rec;
+        public Rectangle hit_rec;
         int xspeed, yspeed;
         public enemy_bullet(int xpos, int ypos, int xspeed, int yspeed)
         {
