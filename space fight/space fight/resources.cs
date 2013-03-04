@@ -24,6 +24,7 @@ namespace space_fight
         public static Texture2D btn_fullscreen;
         public static SpriteFont font;
         public static Texture2D explosion;
+        public static Texture2D fighter_enemy;
         public static SpriteBatch spritebatch;
         public static Texture2D fire;
         public static KeyboardState kboard = new KeyboardState();
@@ -34,5 +35,8 @@ namespace space_fight
         public static int power_level;
         public static Texture2D power_up;
         public static Texture2D restart_btn;
+        public static Texture2D enemy_bullet;
+        public static int player_x;
+        public static int player_y;
     }
 }

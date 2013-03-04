@@ -14,7 +14,9 @@ namespace space_fight
     class enemys
     {
         public List<enemy> enemies = new List<enemy>();
+        public List<enemy_fighter> fighter_enemy = new List<enemy_fighter>();
         int count = 0;
+        bool en = true;
         Random enemy_pattern = new Random();
         int timer = 0;
         public enemys()
@@ -26,6 +28,7 @@ namespace space_fight
             if (resources.death)
             {
                 enemies.Clear();
+                fighter_enemy.Clear();
                 
             }
             if (resources.reset)
@@ -33,10 +36,20 @@ namespace space_fight
                 resources.reset = false;
             }
             count++;
-            if (count == 10)
+            if (count == 40)
             {
-                enemy new_enemy = new enemy(3);
-                enemies.Add(new_enemy);
+                if (en)
+                {
+                    en = false;
+                    enemy_fighter new_fighter = new enemy_fighter(0);
+                    fighter_enemy.Add(new_fighter);
+                }
+                else
+                {
+                    en = true;
+                    enemy_fighter new_fighter = new enemy_fighter(1);
+                    fighter_enemy.Add(new_fighter);
+                }
                 count = 0;
             }
             for (int i = 0; i < enemies.Count; i++)
@@ -54,11 +67,30 @@ namespace space_fight
                     enemies.RemoveAt(i);
                 }
             }
+            for (int i = 0; i < fighter_enemy.Count; i++)
+            {
+                fighter_enemy[i].update();
+                if (resources.death)
+                {
+                    if (fighter_enemy[i].hit_rect.Y > 600)
+                    {
+                        fighter_enemy.RemoveAt(i);
+                    }
+                }
+                if (fighter_enemy[i].hit_rect.Y > 800)
+                {
+                    fighter_enemy.RemoveAt(i);
+                }
+            }
 
         }
         public void draw()
         {
             foreach (enemy e in enemies)
+            {
+                e.draw();
+            }
+            foreach (enemy_fighter e in fighter_enemy)
             {
                 e.draw();
             }

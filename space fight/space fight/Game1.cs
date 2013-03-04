@@ -27,6 +27,8 @@ namespace space_fight
         Texture2D explosion;
         Texture2D power_up;
         Texture2D btn_restart;
+        Texture2D fighter_enemy;
+        Texture2D enemy_bullet;
         SpriteFont font;
 
 
@@ -77,6 +79,10 @@ namespace space_fight
             explosion = Content.Load<Texture2D>("explosion");
             power_up = Content.Load<Texture2D>("power_up");
             btn_restart = Content.Load<Texture2D>("restart_btn");
+            fighter_enemy = Content.Load<Texture2D>("fighter_enemy");
+            enemy_bullet = Content.Load<Texture2D>("enemy_bullet");
+            resources.enemy_bullet = enemy_bullet;
+            resources.fighter_enemy = fighter_enemy;
             resources.restart_btn = btn_restart;
             resources.power_up = power_up;
             resources.btn_exit = btn_exit;
@@ -90,9 +96,10 @@ namespace space_fight
             resources.ship = Player_ship;
             resources.fire = fire;
             resources.spritebatch = spriteBatch;
+            
 
         }
-
+        int place = 0;
         protected override void UnloadContent()
         {
             
@@ -156,6 +163,16 @@ namespace space_fight
                         enemy_container.enemies.RemoveAt(j);
                     }
                 }
+                for (int j = 0; j < enemy_container.fighter_enemy.Count; j++)
+                {
+                    if (player1.hit_rect.Intersects(enemy_container.fighter_enemy[j].hit_rect))
+                    {
+                        explosion new_blast = new explosion(enemy_container.fighter_enemy[j].hit_rect.X, enemy_container.fighter_enemy[j].hit_rect.Y);
+                        boom.Add(new_blast);
+                        resources.death = true;
+                        enemy_container.fighter_enemy.RemoveAt(j);
+                    }
+                }
 
                 //hittest for bullets/enemies
                 for (int i = 0; i < player1.bullets.Count; i++)
@@ -174,6 +191,28 @@ namespace space_fight
                             }
                         }
                         catch (Exception e)
+                        {
+
+                        }
+
+                    }
+                }
+                for (int i = 0; i < player1.bullets.Count; i++)
+                {
+                    for (int j = 0; j < enemy_container.fighter_enemy.Count; j++)
+                    {
+                        try
+                        {
+                            if (enemy_container.fighter_enemy[j].hit_rect.Intersects(player1.bullets[i].hit_rec))
+                            {
+                                player1.bullets.RemoveAt(i);
+                                explosion new_blast = new explosion(enemy_container.fighter_enemy[j].hit_rect.X, enemy_container.fighter_enemy[j].hit_rect.Y);
+                                enemy_container.fighter_enemy.RemoveAt(j);
+                                boom.Add(new_blast);
+                                resources.score++;
+                            }
+                        }
+                        catch (Exception t)
                         {
 
                         }

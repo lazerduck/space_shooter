@@ -33,6 +33,8 @@ namespace space_fight
         }
         public void update()
         {
+            resources.player_x = hit_rect.X;
+            resources.player_y = hit_rect.Y;
             if(resources.death)
             {
                 power.Clear();

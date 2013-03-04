@@ -110,6 +110,8 @@
     <Compile Include="bullet.cs" />
     <Compile Include="enemy.cs" />
     <Compile Include="enemys.cs" />
+    <Compile Include="enemy_bullet.cs" />
+    <Compile Include="enemy_fighter.cs" />
     <Compile Include="explosion.cs" />
     <Compile Include="main_menu.cs" />
     <Compile Include="Player.cs" />
