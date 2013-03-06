@@ -39,5 +39,6 @@ namespace space_fight
         public static Texture2D enemy_bullet;
         public static int player_x;
         public static int player_y;
+        public static int shields;
     }
 }

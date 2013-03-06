@@ -41,12 +41,12 @@ namespace space_fight
                 resources.reset = false;
             }
             count++;
-            if (count % 20 == 0)
+            if (false)
             {
                 enemy new_enemy = new enemy(3);
                 enemies.Add(new_enemy);
             }
-            if (count == 80)
+            if (count == 60)
             {
                 if (en)
                 {

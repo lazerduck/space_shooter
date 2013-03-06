@@ -160,7 +160,7 @@ namespace space_fight
                 {
                     if (player1.hit_rect.Intersects(enemy_container.enemies[j].hit_rec))
                     {
-                        explosion new_blast = new explosion(enemy_container.enemies[j].hit_rec.X, enemy_container.enemies[j].hit_rec.Y);
+                        explosion new_blast = new explosion(player1.hit_rect.X, player1.hit_rect.Y);
                         boom.Add(new_blast);
                         resources.death = true;
                         enemy_container.enemies.RemoveAt(j);
@@ -170,7 +170,7 @@ namespace space_fight
                 {
                     if (player1.hit_rect.Intersects(enemy_container.fighter_enemy[j].hit_rect))
                     {
-                        explosion new_blast = new explosion(enemy_container.fighter_enemy[j].hit_rect.X, enemy_container.fighter_enemy[j].hit_rect.Y);
+                        explosion new_blast = new explosion(player1.hit_rect.X, player1.hit_rect.Y);
                         boom.Add(new_blast);
                         resources.death = true;
                         enemy_container.fighter_enemy.RemoveAt(j);

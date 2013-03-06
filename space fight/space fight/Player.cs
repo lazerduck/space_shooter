@@ -73,7 +73,7 @@ namespace space_fight
                 ypos = 550;
                 xpos = 470;
             }
-            hit_rect = new Rectangle(xpos, ypos, resources.ship.Width, resources.ship.Height);
+            hit_rect = new Rectangle(xpos+(resources.ship.Width/2), ypos+(resources.ship.Height/2), 1, 1);
             kboard = Keyboard.GetState();
             if(kboard.IsKeyDown(Keys.W)|| kboard.IsKeyDown(Keys.Up))
             {

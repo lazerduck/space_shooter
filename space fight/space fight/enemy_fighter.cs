@@ -16,12 +16,12 @@ namespace space_fight
     {
         int side = 0;
         int y_speed = 2;
-        int bullet_speed = 10;
+        int bullet_speed = 2;
         double bull_x = 0;
         double bull_y = 0;
         Vector2 angle;
         int timer = 0;
-        public Rectangle hit_rect = new Rectangle(0, 0, resources.fighter_enemy.Width, resources.fighter_enemy.Height);
+        public Rectangle hit_rect = new Rectangle(0, -70, resources.fighter_enemy.Width, resources.fighter_enemy.Height);
         public enemy_fighter(int side)
         {
             
@@ -40,7 +40,7 @@ namespace space_fight
         {
            timer++;
            hit_rect.Y += y_speed;
-           if (timer % 50 == 0)
+           if (timer % 25 == 0)
            {
                angle = new Vector2((hit_rect.X - resources.player_x),(hit_rect.Y - resources.player_y));
                angle.Normalize();
