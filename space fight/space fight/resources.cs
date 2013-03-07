@@ -37,6 +37,7 @@ namespace space_fight
         public static Texture2D power_up;
         public static Texture2D restart_btn;
         public static Texture2D enemy_bullet;
+        public static Texture2D multi_shot;
         public static int player_x;
         public static int player_y;
         public static int shields;

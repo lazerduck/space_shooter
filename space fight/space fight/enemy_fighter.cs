@@ -16,7 +16,7 @@ namespace space_fight
     {
         int side = 0;
         int y_speed = 2;
-        int bullet_speed = 2;
+        int bullet_speed = 10;
         double bull_x = 0;
         double bull_y = 0;
         Vector2 angle;
@@ -40,7 +40,7 @@ namespace space_fight
         {
            timer++;
            hit_rect.Y += y_speed;
-           if (timer % 25 == 0)
+           if (timer % 40 == 0)
            {
                angle = new Vector2((hit_rect.X - resources.player_x),(hit_rect.Y - resources.player_y));
                angle.Normalize();

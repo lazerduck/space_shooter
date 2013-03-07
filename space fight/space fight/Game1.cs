@@ -28,6 +28,7 @@ namespace space_fight
         Texture2D power_up;
         Texture2D btn_restart;
         Texture2D fighter_enemy;
+        Texture2D multi_shot;
         Texture2D enemy_bullet;
         SpriteFont font;
 
@@ -81,6 +82,8 @@ namespace space_fight
             btn_restart = Content.Load<Texture2D>("restart_btn");
             fighter_enemy = Content.Load<Texture2D>("fighter_enemy");
             enemy_bullet = Content.Load<Texture2D>("enemy_bullet");
+            multi_shot = Content.Load<Texture2D>("multi_shot");
+            resources.multi_shot = multi_shot;
             resources.enemy_bullet = enemy_bullet;
             resources.fighter_enemy = fighter_enemy;
             resources.restart_btn = btn_restart;

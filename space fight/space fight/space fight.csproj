@@ -114,6 +114,7 @@
     <Compile Include="enemy_fighter.cs" />
     <Compile Include="explosion.cs" />
     <Compile Include="main_menu.cs" />
+    <Compile Include="multi_shot.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="powerups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
