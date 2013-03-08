@@ -179,7 +179,16 @@ namespace space_fight
                         enemy_container.fighter_enemy.RemoveAt(j);
                     }
                 }
-
+                for (int j = 0; j < enemy_container.multi_enemy.Count; j++)
+                {
+                    if (player1.hit_rect.Intersects(enemy_container.multi_enemy[j].hit_rect))
+                    {
+                        explosion new_blast = new explosion(player1.hit_rect.X, player1.hit_rect.Y);
+                        boom.Add(new_blast);
+                        resources.death = true;
+                        enemy_container.multi_enemy.RemoveAt(j);
+                    }
+                }
                 //hittest for bullets/enemies
                 for (int i = 0; i < player1.bullets.Count; i++)
                 {
@@ -195,6 +204,7 @@ namespace space_fight
                                 boom.Add(new_blast);
                                 resources.score++;
                             }
+                            
                         }
                         catch (Exception e)
                         {
@@ -247,6 +257,34 @@ namespace space_fight
                     }
                 }  
             }
+            for (int i = 0; i < player1.bullets.Count; i++)
+            {
+                for (int j = 0; j < enemy_container.multi_enemy.Count; j++)
+                {
+                    try
+                    {
+                        if (enemy_container.multi_enemy[j].hit_rect.Intersects(player1.bullets[i].hit_rec))
+                        {
+                            player1.bullets.RemoveAt(i);
+                            explosion new_blast = new explosion(enemy_container.multi_enemy[j].hit_rect.X, enemy_container.multi_enemy[j].hit_rect.Y);
+                            enemy_container.multi_enemy[j].health--;
+                            enemy_container.multi_enemy[j].flash = true;
+                            if (enemy_container.multi_enemy[j].health < 1)
+                            {
+                                enemy_container.multi_enemy.RemoveAt(j);
+                                boom.Add(new_blast);
+                                resources.score++;
+                            }
+                        }
+                    }
+                    catch (Exception l)
+                    {
+
+                    }
+
+                }
+            }
+            
             for (int i = 0; i < boom.Count; i++)
             {
                 if (boom[i].alpha < 0)

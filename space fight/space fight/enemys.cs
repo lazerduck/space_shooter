@@ -15,6 +15,7 @@ namespace space_fight
     {
         public List<enemy> enemies = new List<enemy>();
         public List<enemy_fighter> fighter_enemy = new List<enemy_fighter>();
+        public List<multi_shot> multi_enemy = new List<multi_shot>();
         int count = 0;
         bool en = true;
         Random enemy_pattern = new Random();
@@ -34,6 +35,7 @@ namespace space_fight
                 enemies.Clear();
                 fighter_enemy.Clear();
                 resources.bull.Clear();
+                multi_enemy.Clear();
                 
             }
             if (resources.reset)
@@ -41,12 +43,17 @@ namespace space_fight
                 resources.reset = false;
             }
             count++;
-            if (false)
+            if (count%300 == 0)
+            {
+                multi_shot new_multi = new multi_shot();
+                multi_enemy.Add(new_multi);
+            }
+            if (count % 60 == 0)
             {
                 enemy new_enemy = new enemy(3);
                 enemies.Add(new_enemy);
             }
-            if (count == 60)
+            if (count%120 == 0)
             {
                 if (en)
                 {
@@ -61,8 +68,10 @@ namespace space_fight
                     fighter_enemy.Add(new_fighter);
 
                 }
-                count = 0;
+                
             }
+             
+            //updates
             for (int i = 0; i < enemies.Count; i++)
             {
                 enemies[i].update();
@@ -100,6 +109,15 @@ namespace space_fight
                     fighter_enemy.RemoveAt(i);
                 }
             }
+            for (int i = 0; i < multi_enemy.Count; i++)
+            {
+
+                multi_enemy[i].update();
+                if (multi_enemy[i].hit_rect.Y > 600)
+                {
+                    fighter_enemy.RemoveAt(i);
+                }
+            }
 
         }
         public void draw()
@@ -115,6 +133,10 @@ namespace space_fight
             foreach (enemy_fighter e in fighter_enemy)
             {
                 e.draw();
+            }
+            foreach (multi_shot m in multi_enemy)
+            {
+                m.draw();
             }
         }
     }

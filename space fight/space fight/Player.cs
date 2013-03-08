@@ -15,13 +15,14 @@ namespace space_fight
     class Player
     {
         //variables
-        int pow_time = 50;
+        int pow_time = 10;
         int xpos = 470;
         int ypos = 550;
         int max_speed = 10;
         int fire_timer = 0;
         bool bul_bool = true;
         public Rectangle hit_rect;
+        public Rectangle hit_rect_power;
         KeyboardState kboard = new KeyboardState();
         public List<bullet> bullets = new List<bullet>();
         public List<trail> trails = new List<trail>();
@@ -35,11 +36,12 @@ namespace space_fight
         {
             resources.player_x = hit_rect.X;
             resources.player_y = hit_rect.Y;
+            hit_rect_power = new Rectangle(xpos-10, ypos-10, resources.ship.Width+10, resources.ship.Height+10);
             
             //player/power hittest
             for (int i = 0; i < power.Count; i++)
             {
-                if (power[i].hit_box.Intersects(hit_rect))
+                if (power[i].hit_box.Intersects(hit_rect_power))
                 {
                     power.RemoveAt(i);
                     resources.power_level++;
@@ -74,6 +76,7 @@ namespace space_fight
                 xpos = 470;
             }
             hit_rect = new Rectangle(xpos+(resources.ship.Width/2), ypos+(resources.ship.Height/2), 1, 1);
+            
             kboard = Keyboard.GetState();
             if(kboard.IsKeyDown(Keys.W)|| kboard.IsKeyDown(Keys.Up))
             {
