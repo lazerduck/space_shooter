@@ -40,6 +40,5 @@ namespace space_fight
         public static Texture2D multi_shot;
         public static int player_x;
         public static int player_y;
-        public static int shields;
     }
 }

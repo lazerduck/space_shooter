@@ -13,6 +13,7 @@ namespace space_fight
 {
     class powerups
     {
+     
         Random starpos = new Random();
         public Rectangle hit_box = new Rectangle(0, 0, resources.power_up.Width, resources.power_up.Height);
         public powerups()

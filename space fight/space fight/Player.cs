@@ -44,7 +44,10 @@ namespace space_fight
                 if (power[i].hit_box.Intersects(hit_rect_power))
                 {
                     power.RemoveAt(i);
-                    resources.power_level++;
+                    if (resources.power_level < 4)
+                    {
+                        resources.power_level++;
+                    }
                 }
             }
             
@@ -54,6 +57,10 @@ namespace space_fight
                 power.Add(new_power);
                 pow_time = pow_time*2;
                 launch = true;
+            }
+            if (resources.death)
+            {
+                pow_time = 10;
             }
             if ((launch) && (resources.score % pow_time != 0))
             {

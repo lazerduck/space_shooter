@@ -43,17 +43,17 @@ namespace space_fight
                 resources.reset = false;
             }
             count++;
-            if (count%300 == 0)
+            if (count%300 - resources.score/20 == 0)
             {
                 multi_shot new_multi = new multi_shot();
                 multi_enemy.Add(new_multi);
             }
-            if (count % 60 == 0)
+            if (count % 60 - resources.score/20== 0)
             {
                 enemy new_enemy = new enemy(3);
                 enemies.Add(new_enemy);
             }
-            if (count%120 == 0)
+            if (count%120 - resources.score/20 == 0)
             {
                 if (en)
                 {
